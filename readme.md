@@ -10,7 +10,7 @@ MySQL的表名需小写或小写加下划线，如：item，car_orders。
 # 目录准备
 在开始开发前，让我们先来把项目建立好。
 
-假设我们建立的项目为 project，MVC的框架命名为 fastphp，那么接下来，第一步要把目录结构设置好。
+假设我们建立的项目为 project，MVC的框架命名为 wisonphp，那么接下来，第一步要把目录结构设置好。
 
 project  WEB部署目录
 ├─application           应用目录
