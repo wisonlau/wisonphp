@@ -23,6 +23,7 @@ project  WEB部署目录
 ├─static                静态文件目录
 ├─runtime               缓存日志目录
 ├─index.php             入口文件
+
 然后把Nginx或者Apache的站点根目录配置到project目录。
 
 # 重定向
