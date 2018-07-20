@@ -3,20 +3,22 @@
  * Created by PhpStorm.
  * User: wison
  * Date: 2018/7/20
- * Time: 9:39
  */
 
 class Di
 {
     private static $Container_Path = './application/common/';
     private static $Logic_Path = './application/logic/';
+    private static $obj;
+
+
     public function __construct($controller, $method = '')
     {
         spl_autoload_register( array('Di', 'loadClass') );
 
 
-        $reflectionName = (new ReflectionMethod($controller, '__construct'))->getParameters();
         $app = new Container();
+        $reflectionName = (new ReflectionMethod($controller, '__construct'))->getParameters();
         foreach ($reflectionName as $key => $ReflectionParameter)
         {
             foreach ($ReflectionParameter as $k => $name)
@@ -26,20 +28,24 @@ class Di
             }
         }
 
-        $obj = (new ReflectionClass($controller))->newInstanceArgs($injection);
+        self::$obj = (new ReflectionClass($controller))->newInstanceArgs($injection);
         if ($method)
         {
-            return $obj->$method();
+            return self::$obj->$method();
         }
         else
         {
-            return $this->out($obj);
+            return self::$obj;
         }
     }
 
-    function out($obj)
+    function __call($methodName, $args)
     {
-        return $obj;
+        self::$obj->$methodName();
+    }
+
+    function __clone()
+    {
     }
 
     function loadClass($class_name)

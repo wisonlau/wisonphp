@@ -1,0 +1,9 @@
+{
+  "name": "wisonphp",
+  "description": "PHP Framework",
+  "type": "Framework",
+  "keywords": ["php", "Framework"],
+  "require": {
+    "php": ">=5.5"
+  }
+}

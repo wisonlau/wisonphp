@@ -16,9 +16,9 @@ class ItemController extends Controller
         }
 
         // di
-        $injection = new Di('PayBill', 'payMyBill');
-        // $injection = new Di('PayBill');
-        // $injection->payMyBill();
+        // $injection = new Di('PayBill', 'payMyBill');
+        $injection = new Di('PayBill');
+        $injection->payMyBill(1,2,3);
 
 
         $this->assign('title', '全部条目');

@@ -5,6 +5,9 @@ define('APP_PATH', __DIR__ . '/');
 // 开启调试模式
 define('APP_DEBUG', true);
 
+// composer
+require_once(APP_PATH . 'vendor/autoload.php');
+
 // 加载框架文件
 require(APP_PATH . 'wisonphp/Wisonphp.php');
 
