@@ -14,5 +14,8 @@ $config = require(APP_PATH . 'config/config.php');
 // 加载函数文件
 require(APP_PATH . 'application/common/function.php');
 
+// Di
+require_once './application/common/di.php';
+
 // 实例化框架类
 (new Wisonphp($config))->run();

@@ -15,6 +15,12 @@ class ItemController extends Controller
             $items = (new ItemModel)->where()->order(['id DESC'])->fetchAll();
         }
 
+        // di
+        $injection = new Di('PayBill', 'payMyBill');
+        // $injection = new Di('PayBill');
+        // $injection->payMyBill();
+
+
         $this->assign('title', '全部条目');
         $this->assign('keyword', $keyword);
         $this->assign('items', $items);
@@ -76,5 +82,23 @@ class ItemController extends Controller
         $this->assign('title', '删除成功');
         $this->assign('count', $count);
         $this->render();
+    }
+
+    private function get_all_files( $path )
+    {
+        $list = array();
+        foreach( glob( $path . '/*') as $item )
+        {
+            if( is_dir( $item ) )
+            {
+                $list = array_merge( $list , $this->get_all_files( $item ) );
+            }
+            else
+            {
+                $list[] = $item;
+            }
+        }
+
+        return $list;
     }
 }
