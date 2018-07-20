@@ -15,11 +15,11 @@ class ItemController extends Controller
             $items = (new ItemModel)->where()->order(['id DESC'])->fetchAll();
         }
 
-        // di
-        // $injection = new Di('PayBill', 'payMyBill');
-        $injection = new Di('PayBill');
+        // __construct di
+        $injection = Ioc::getInstance('PayBill');
         $injection->payMyBill(1,2,3);
-
+        // method di
+        // Ioc::make('PayBill', 'paySheBill', $items);
 
         $this->assign('title', '全部条目');
         $this->assign('keyword', $keyword);

@@ -10,6 +10,8 @@ class PayBill {
 
     private $Alipay;
     private $Wechatpay;
+    private $Unionpay;
+    private $PayPal;
 
     public function __construct( Alipay $Alipay, Wechatpay $Wechatpay )
     {
@@ -21,5 +23,11 @@ class PayBill {
     {
         $this->Alipay->pay();
         $this->Wechatpay->pay();
+    }
+
+    public function paySheBill(Unionpay $Unionpay, PayPal $PayPal)
+    {
+        $this->Unionpay = $Unionpay->pay();
+        $this->PayPal = $PayPal->pay();
     }
 }

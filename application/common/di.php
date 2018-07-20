@@ -3,6 +3,10 @@
  * Created by PhpStorm.
  * User: wison
  * Date: 2018/7/20
+ * use
+ * $injection = new Di('PayBill', 'payMyBill');
+ * $injection = new Di('PayBill');
+ * $injection->payMyBill(1,2,3);
  */
 
 class Di
@@ -19,16 +23,20 @@ class Di
 
         $app = new Container();
         $reflectionName = (new ReflectionMethod($controller, '__construct'))->getParameters();
-        foreach ($reflectionName as $key => $ReflectionParameter)
+        if (count($reflectionName) > 0)
         {
-            foreach ($ReflectionParameter as $k => $name)
+            foreach ($reflectionName as $key => $ReflectionParameter)
             {
-                $app->bind($name, $name);
-                $injection[] = $app->make($name);
+                if ($paramClass = $ReflectionParameter->getClass())
+                {
+                    $app->bind($paramClass->getName(), $paramClass->getName());
+                    $injection[] = $app->make($paramClass->getName());
+                }
             }
+
+            self::$obj = (new ReflectionClass($controller))->newInstanceArgs($injection);
         }
 
-        self::$obj = (new ReflectionClass($controller))->newInstanceArgs($injection);
         if ($method)
         {
             return self::$obj->$method();
