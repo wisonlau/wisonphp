@@ -5,7 +5,7 @@ class ItemController extends Controller
     // 首页方法，测试框架自定义DB查询
     public function index()
     {
-        $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+        $keyword = Request('get.keyword','');
 
         if ($keyword) {
             $items = (new ItemModel())->search($keyword);
@@ -41,7 +41,7 @@ class ItemController extends Controller
     // 添加记录，测试框架DB记录创建（Create）
     public function add()
     {
-        $data['item_name'] = htmlspecialchars($_POST['value']);
+        $data['item_name'] = Request('post.value','');
         $count = (new ItemModel)->add($data);
 
         $this->assign('title', '添加成功');
@@ -66,7 +66,7 @@ class ItemController extends Controller
     // 更新记录，测试框架DB记录更新（Update）
     public function update()
     {
-        $data = array('id' => (int)$_POST['id'], 'item_name' => htmlspecialchars($_POST['value']));
+        $data = array('id' => (int)$_POST['id'], 'item_name' => Request('post.value', ''));
         $count = (new ItemModel)->where(['id = :id'], [':id' => (int)$data['id']])->update($data);
 
         $this->assign('title', '修改成功');
